@@ -1,0 +1,43 @@
+{
+  "title": "Form Title",
+  "subtitle": "Short instruction line shown under the title",
+  "reference": "REF-001",
+  "protect": false,
+  "filename": "form.pdf",
+
+  "sections": [
+    { "type": "sec_bar", "text": "First Section" },
+
+    { "type": "field_row", "fields": [
+      { "label": "Full Name", "id": "name" },
+      { "label": "Date",      "id": "date" }
+    ]},
+
+    { "type": "note", "text": "<b>Note:</b> guidance the recipient must read." },
+
+    { "type": "sec_bar", "text": "A Repeating List" },
+
+    { "type": "table", "id": "items",
+      "headers": ["Item", "Description", "Date", "Amount"],
+      "narrow": [0, 2, 3],
+      "flex": 1,
+      "sum_col": 3,
+      "addable": true,
+      "totals": [{ "label": "Total:", "of": ["self"] }],
+      "rows": [["", "", "", ""]]
+    },
+
+    { "type": "sec_bar", "text": "Statement" },
+
+    { "type": "textarea", "id": "statement",
+      "instruction": "Set out your case fully. Continue on a separate sheet if required.",
+      "default": "" },
+
+    { "type": "signature" }
+  ],
+
+  "footer": {
+    "return_to": "someone@example.com",
+    "lines": ["Return this form with any supporting documents attached."]
+  }
+}
