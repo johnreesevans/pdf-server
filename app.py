@@ -1,31 +1,33 @@
 """
-Waiver PDF generator — Flask endpoint.
-POST /generate-pdf  with JSON body → returns application/pdf
-Deploy to Railway: add this repo, set start command to:
-  gunicorn app:app --bind 0.0.0.0:$PORT
+app.py — PDF generation service.
+
+One renderer, every form.
+  POST /generate-schema-pdf   {schema, values, filename} -> application/pdf
+  GET  /health
 """
 from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
-import io, json
-from pdf_builder import build_pdf
+import io
+
+from schema_renderer import render_schema
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/generate-pdf', methods=['POST', 'OPTIONS'])
-def generate_pdf():
+@app.route('/generate-schema-pdf', methods=['POST','OPTIONS'])
+def generate_schema_pdf():
     if request.method == 'OPTIONS':
         return '', 204
     try:
-        data = request.get_json(force=True)
-        buf = build_pdf(data)
+        body   = request.get_json(force=True)
+        schema = body.get('schema', {})
+        values = body.get('values', {})
+        fname  = body.get('filename', 'form.pdf')
+        buf    = render_schema(schema, values)
         buf.seek(0)
-        return send_file(
-            buf,
-            mimetype='application/pdf',
-            as_attachment=True,
-            download_name='Educational_Waiver_Request_Rees-Evans.pdf'
-        )
+        return send_file(buf, mimetype='application/pdf',
+                         as_attachment=True,
+                         download_name=fname)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

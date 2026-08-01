@@ -1,0 +1,170 @@
+{
+  "title": "Educational Waiver Request",
+  "subtitle": "British Army Officer Entry &nbsp;·&nbsp; Complete all sections and return as PDF to RG-NRCAPTOfficer@mod.gov.uk",
+  "reference": "D-ARMY-864 (Revised 10 Sep 20)",
+  "protect": true,
+  "filename": "Educational_Waiver_Request_Rees-Evans.pdf",
+
+  "sections": [
+    { "type": "sec_bar", "text": "Candidate Particulars" },
+
+    { "type": "field_row", "fields": [
+      { "label": "Forenames", "id": "forenames", "default": "John", "prefill": true },
+      { "label": "Surname",   "id": "surname",   "default": "Rees-Evans", "prefill": true }
+    ]},
+
+    { "type": "field_row", "fields": [
+      { "label": "Date of Birth",      "id": "dob",        "default": "13/04/1978",    "prefill": true },
+      { "label": "Current Age",        "id": "age",        "default": "48",            "prefill": true },
+      { "label": "Candidate URN",      "id": "urn",        "default": "2000005020715", "prefill": true },
+      { "label": "Type of Commission", "id": "commission", "default": "Reserve",       "prefill": true }
+    ]},
+
+    { "type": "field_row", "fields": [
+      { "label": "Current Occupation / Employment", "id": "occupation",
+        "default": "Founder & Director — Team Kilimanjaro (Tanzania); Team Toubkal (Morocco); Team Mount Everest (Nepal); Social Activation Software LLC (Wyoming, USA); Student — Open University LLB (Law)" }
+    ]},
+
+    { "type": "sec_bar", "text": "Secondary Level Schooling (Ages 11–16)" },
+
+    { "type": "field_row", "fields": [
+      { "label": "School Name",    "id": "s1n", "default": "The Park School" },
+      { "label": "Location",       "id": "s1l", "default": "North Devon, UK" },
+      { "label": "Type",           "id": "s1t", "default": "State" },
+      { "label": "Years Attended", "id": "s1y", "default": "1991–1994" }
+    ]},
+
+    { "type": "sec_bar", "text": "GCSE Qualifications (or Level 2 Equivalents)" },
+
+    { "type": "table", "id": "gcse",
+      "headers": ["Type", "Subject", "Date Awarded", "Grade", "ALIS Points"],
+      "narrow": [0, 2, 3, 4],
+      "flex": 1,
+      "sum_col": 4,
+      "addable": true,
+      "totals": [{ "label": "Total ALIS Points:", "of": ["self"] }],
+      "rows": [
+        ["GCSE", "Mathematics",            "Summer 1994", "A",  "7"],
+        ["GCSE", "English Language",       "Summer 1994", "A",  "7"],
+        ["GCSE", "English Literature",     "Summer 1994", "B",  "6"],
+        ["GCSE", "French",                 "Summer 1994", "A*", "8"],
+        ["GCSE", "German",                 "Summer 1994", "A*", "8"],
+        ["GCSE", "Statistics",             "Summer 1994", "A",  "7"],
+        ["GCSE", "History",                "Summer 1994", "A*", "8"],
+        ["GCSE", "Science — Double Award", "Summer 1994", "A",  "7"],
+        ["GCSE", "Science — Double Award", "Summer 1994", "A",  "7"],
+        ["GCSE", "Art and Design",         "Summer 1994", "D",  "4"]
+      ]
+    },
+
+    { "type": "text", "text": "ALIS Points: A*/9 = 8 &nbsp;·&nbsp; Low A*/High A/8 = 7.5 &nbsp;·&nbsp; A/7 = 7 &nbsp;·&nbsp; B/6 = 6 &nbsp;·&nbsp; C/4&amp;5 = 5 &nbsp;·&nbsp; D/3 = 4" },
+
+    { "type": "page_break" },
+
+    { "type": "sec_bar", "text": "Post-16 Education — A Level / AS Qualifications (Level 3)" },
+
+    { "type": "note", "text": "<b>Note:</b> A communication from Army Recruitment dated 31 July 2026 confirmed that the South African National Senior Certificate (Matriculation) is recognised as equivalent to UK AS Levels for this application. UCAS points for Matriculation subjects are calculated on that basis." },
+
+    { "type": "field_row", "fields": [
+      { "label": "Establishment Name", "id": "s2n", "default": "North Devon College" },
+      { "label": "Location",           "id": "s2l", "default": "North Devon, UK" },
+      { "label": "Type",               "id": "s2t", "default": "State" },
+      { "label": "Years Attended",     "id": "s2y", "default": "1994–1995" }
+    ]},
+
+    { "type": "table", "id": "al",
+      "headers": ["Type", "Subject", "Date Awarded", "Grade", "UCAS Points"],
+      "narrow": [0, 2, 3, 4],
+      "flex": 1,
+      "sum_col": 4,
+      "addable": true,
+      "totals": [{ "label": "North Devon College sub-total:", "of": ["self"] }],
+      "rows": [
+        ["A Level (1st year)",  "Mathematics",         "Summer 1995", "A (forecast)", ""],
+        ["A Level (1st year)",  "Physics",             "Summer 1995", "A (forecast)", ""],
+        ["A Level (1st year)",  "Chemistry",           "Summer 1995", "A (forecast)", ""],
+        ["A Level (1st year)",  "Applied Mathematics", "Summer 1995", "A (forecast)", ""],
+        ["A Level (sat early)", "General Studies",     "Summer 1995", "B",            "40"]
+      ]
+    },
+
+    { "type": "divider" },
+
+    { "type": "table", "id": "mat",
+      "headers": ["Type", "Subject", "Date Awarded", "Grade", "UCAS Points"],
+      "narrow": [0, 2, 3, 4],
+      "flex": 1,
+      "sum_col": 4,
+      "addable": true,
+      "totals": [
+        { "label": "Jeppe Boys High School sub-total:", "of": ["self"] },
+        { "label": "Combined UCAS Points (both institutions):", "of": ["al", "mat"] }
+      ],
+      "rows": [
+        ["SA Matric", "English First Language (Higher Grade)", "Nov/Dec 1996", "A", "20"],
+        ["SA Matric", "Mathematics (Higher Grade)",            "Nov/Dec 1996", "E", "6"],
+        ["SA Matric", "Physical Science (Higher Grade)",       "Nov/Dec 1996", "D", "8"],
+        ["SA Matric", "Biology (Higher Grade)",                "Nov/Dec 1996", "D", "8"],
+        ["SA Matric", "French (Higher Grade)",                 "Nov/Dec 1996", "B", "16"]
+      ]
+    },
+
+    { "type": "field_row", "fields": [
+      { "label": "Note on South African Matriculation", "id": "mat_note",
+        "default": "Matriculation completed at Jeppe Boys High School, Johannesburg (Model C, 1995–1996) — 5 subjects at Higher Grade. Certificates available on request." }
+    ]},
+
+    { "type": "sec_bar", "text": "University / Higher Education (if applicable)" },
+
+    { "type": "table", "id": "uni",
+      "headers": ["Establishment", "Qualification", "Subject", "Grade", "Years"],
+      "narrow": [4],
+      "addable": true,
+      "rows": [
+        ["The Open University", "LLB (in progress — 180/360 credits)", "Law", "Distinction (all 4 modules to date)", "2024–present"]
+      ]
+    },
+
+    { "type": "sec_bar", "text": "Other Academic Qualifications of Relevance to Waiver" },
+
+    { "type": "table", "id": "oth",
+      "headers": ["Awarding Body", "Qualification", "Subject", "Grade", "Years"],
+      "narrow": [0, 1, 3, 4],
+      "flex": 2,
+      "addable": true,
+      "rows": [
+        ["CAA / SACAA", "PPL Theoretical Exams (all 7)", "Air Law, Meteorology, Navigation, Principles of Flight, Human Performance, Aircraft General Knowledge, Operational Procedures", "Pass (pre-COVID; resumed 2025)", "2019–2026"]
+      ]
+    },
+
+    { "type": "sec_bar", "text": "Membership of Professional Bodies" },
+
+    { "type": "table", "id": "prof",
+      "headers": ["Professional Body", "Type / Level of Membership", "Additional Information"],
+      "addable": true,
+      "rows": [["None", "", ""]]
+    },
+
+    { "type": "sec_bar", "text": "Justification for Educational Waiver" },
+
+    { "type": "field_row", "fields": [
+      { "label": "Reason for Educational Waiver",    "id": "reason1", "default": "Significant life / work experience" },
+      { "label": "Secondary Reason (if applicable)", "id": "reason2", "default": "Non-UK qualifications" }
+    ]},
+
+    { "type": "textarea", "id": "justification",
+      "instruction": "State fully the grounds upon which the waiver is being requested. Include any mitigating circumstances. Attach supporting documents as separate PDFs. The SEA will rely entirely on what is provided here.",
+      "default": "I am applying on grounds of significant life and work experience and a justifiable reason for academic divergence: my Matriculation, completed in South Africa when I relocated mid–A-level studies, is not recognised under UK equivalency rules — an administrative incompatibility, not a failure of performance, as my GCSE results demonstrate.\n\nDuring the years my peers were at university I cycled solo from Geneva to Jerusalem (navigating a Foreign Office hostage advisory in Syria en route) and across the United States, traversed the Jostedalsbreen Glacier, climbed Kilimanjaro, all major peaks on Mount Kenya and the Rwenzori Mountains — the latter requiring me to negotiate a 41-man UPDF armed platoon from senior Ugandan military commanders including the operational commander Brigadier General James Kazini, in order to enter a national park closed for four years due to active ADF insurgency — and briefed President Museveni on an outcome that directly led to the park's reopening.\n\nIn 2006 I identified a fatal flaw in the official Tanzanian government investigation into three tourist deaths on Kilimanjaro's Western Breach, convinced the Director General of TANAPA to allow me to lead a field investigation with senior rangers, and produced the finding that redesigned the route still in use today. I have since founded and operated three international expedition companies across Tanzania, Morocco and Nepal, led or overseen expeditions for more than 13,000 climbers at altitude up to 5,895m, built a suite of commercial software platforms as sole developer, achieved Distinctions in all four modules of an Open University LLB to date, passed all seven PPL theoretical examinations (training now resumed after COVID interruption), and set two Kilimanjaro endurance records in July 2026. I am 48, a father of five including two infants, and was personally encouraged to seek a commission with the Royal Welch Fusiliers as a teenager by my second cousin, who subsequently commanded the Royal Welsh Regiment. The attached letter sets out the full account with supporting evidence and footnotes."
+    },
+
+    { "type": "signature" }
+  ],
+
+  "footer": {
+    "return_to": "RG-NRCAPTOfficer@mod.gov.uk",
+    "lines": [
+      "Include this form and all supporting documentation as separate PDF attachments.",
+      "<i>Any personal information provided will be dealt with in the strictest confidence.</i>"
+    ]
+  }
+}
