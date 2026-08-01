@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Educational Waiver Request — John Rees-Evans</title>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── CHANGE THIS to your Railway URL once deployed ── */
+/* e.g. https://waiver-pdf.up.railway.app            */
+</style>
+<script>
+const SERVER_URL = 'http://localhost:5050'; // ← replace with Railway URL after deploy
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#c0b8b0;min-height:100vh}
+body{font-family:'Spectral',Georgia,serif;font-size:13px;color:#1a1814;-webkit-font-smoothing:antialiased}
+
+.toolbar{max-width:800px;margin:0 auto;padding:10px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.toolbar-note{font-style:italic;font-size:11px;color:#888;margin-right:auto}
+.btn{font-family:'Spectral',serif;font-size:12px;padding:7px 18px;border:1px solid #777;border-radius:2px;cursor:pointer;background:#f5f5f5;color:#1a1814;transition:.15s}
+.btn:hover{background:#e8e8e8}
+.btn.primary{background:#2c4a52;color:#fff;border-color:#2c4a52;font-size:13px;padding:8px 22px}
+.btn.primary:hover{background:#223d44}
+.btn:disabled{opacity:.5;cursor:default}
+.status{font-style:italic;font-size:11px;color:#2c4a52;margin-left:4px}
+
+.page{max-width:800px;margin:0 auto 48px;background:#fff;box-shadow:0 4px 32px rgba(0,0,0,.28);padding:42px 52px 56px}
+
+.doc-meta{display:flex;justify-content:space-between;padding-bottom:10px;border-bottom:2px solid #1a1814;margin-bottom:16px}
+.doc-meta-l,.doc-meta-r{font-size:10px;color:#666;line-height:1.8}
+.doc-meta-r{text-align:right}
+.doc-title{text-align:center;margin-bottom:20px;padding-top:8px}
+.doc-title h1{font-family:'Spectral',serif;font-weight:600;font-size:16px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+.doc-title .sub{font-size:11px;font-style:italic;color:#666}
+
+.sec-bar{background:#2c4a52;color:#fff;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 8px;margin:16px 0 9px}
+
+.fr{display:grid;gap:0 14px;margin-bottom:8px;align-items:start}
+.fr.c2{grid-template-columns:1fr 1fr}
+.fr.c4{grid-template-columns:repeat(4,1fr)}
+.fr.cfull{grid-template-columns:1fr}
+
+.field{display:flex;flex-direction:column;min-width:0}
+.field label{font-size:8px;letter-spacing:.07em;text-transform:uppercase;color:#777;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.field input,.field select,.field textarea{font-family:'Spectral',serif;font-size:13px;color:#1a1814;background:transparent;border:none;border-bottom:1px solid #999;padding:3px 4px 4px;outline:none;width:100%;min-width:0;-webkit-appearance:none;border-radius:0}
+.field input:focus,.field select:focus,.field textarea:focus{border-bottom-color:#2c4a52;background:rgba(44,74,82,.04)}
+.prefill{font-size:13px;font-weight:600;color:#1a1814;background:rgba(44,74,82,.05);border-bottom:1px solid #2c4a52;padding:3px 5px 4px}
+
+.qt{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:3px;table-layout:auto}
+.qt th{font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:#777;font-weight:400;border-bottom:1px solid #999;padding:5px 6px 4px;text-align:left;background:#f0f0f0;white-space:nowrap}
+.qt td{padding:3px 5px;vertical-align:top}
+.qt td input{font-family:'Spectral',serif;font-size:12px;color:#1a1814;background:transparent;border:none;border-bottom:1px solid #e0e0e0;padding:2px 2px 3px;width:100%;outline:none;min-width:0}
+.qt td input:focus{border-bottom-color:#2c4a52}
+.qt tbody tr:nth-child(even) td{background:#f9f9f9}
+
+.qt tfoot td{border-top:1px solid #bbb;padding:5px 6px;background:#fff}
+.qt tfoot .lbl{font-size:11px;font-style:italic;color:#666;text-align:right;padding-right:10px}
+.qt tfoot .val{font-size:13px;font-weight:700;color:#1a1814;white-space:nowrap}
+.qt tfoot .combined-row td{border-top:2px solid #888;font-weight:600;font-style:normal;color:#1a1814}
+
+.add-btn{font-family:'Spectral',serif;font-style:italic;font-size:11px;color:#2c4a52;background:none;border:none;cursor:pointer;text-decoration:underline;padding:2px 0;margin:2px 0 6px;display:block}
+.del-btn{background:none;border:none;color:#ccc;cursor:pointer;font-size:13px;padding:0 2px}
+.del-btn:hover{color:#8b2222}
+.alis-note{font-size:10px;font-style:italic;color:#888;border-left:2px solid #e0e0e0;padding:3px 8px;margin:4px 0 8px;line-height:1.7}
+.matric-note-box{font-size:10.5px;font-style:italic;color:#555;border:1px solid #ccc;border-left:3px solid #2c4a52;background:#f5f8fa;padding:7px 10px;margin:4px 0 10px;line-height:1.65}
+.matric-note-box strong{font-style:normal;color:#1a1814}
+
+.divider{height:1px;background:#e0e0e0;margin:12px 0}
+
+.reason-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:10px}
+.just-box{border:1px solid #bbb;padding:12px;background:#fafafa}
+.just-note{font-size:10px;font-style:italic;color:#777;margin-bottom:8px;line-height:1.6}
+.just-box textarea{font-family:'Spectral',serif;font-size:12.5px;color:#1a1814;background:transparent;border:none;padding:0;width:100%;outline:none;resize:vertical;min-height:200px;line-height:1.65;white-space:pre-wrap;word-wrap:break-word;overflow-wrap:break-word;display:block;box-sizing:border-box}
+
+.sub-footer{margin-top:18px;padding-top:12px;border-top:1px solid #ccc;font-size:10.5px;color:#666;line-height:1.9}
+.sub-footer strong{font-weight:600;color:#1a1814}
+.sig-row{display:grid;grid-template-columns:auto 1fr 20px auto 1fr;gap:0 10px;margin-top:26px;align-items:end}
+.sig-row span{font-size:11px;font-weight:600;padding-bottom:3px;white-space:nowrap}
+.sig-line{border-bottom:1px solid #999;min-height:26px}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span class="toolbar-note">Fill in the form · click Export PDF to download a server-generated PDF</span>
+  <button class="btn" onclick="addGCSERow()">+ GCSE row</button>
+  <button class="btn" onclick="addARow()">+ A Level row</button>
+  <button class="btn" onclick="addMatricRow()">+ Matric row</button>
+  <button class="btn primary" id="export-btn" onclick="exportPDF()">Export PDF ↓</button>
+  <span class="status" id="status"></span>
+</div>
+
+<div class="page">
+  <div class="doc-meta">
+    <div class="doc-meta-l">PROTECT – PERSONAL DATA<br><em>Handle in accordance with Data Protection Act 2018</em></div>
+    <div class="doc-meta-r">D-ARMY-864 (Revised 10 Sep 20)<br><em>Educational Waiver Request Form</em></div>
+  </div>
+  <div class="doc-title">
+    <h1>Educational Waiver Request</h1>
+    <div class="sub">British Army Officer Entry &nbsp;·&nbsp; Complete all sections and return as PDF to RG-NRCAPTOfficer@mod.gov.uk</div>
+  </div>
+
+  <!-- CANDIDATE PARTICULARS -->
+  <div class="sec-bar">Candidate Particulars</div>
+  <div class="fr c2">
+    <div class="field"><label>Forenames</label><div class="prefill">John</div></div>
+    <div class="field"><label>Surname</label><div class="prefill">Rees-Evans</div></div>
+  </div>
+  <div class="fr c4">
+    <div class="field"><label>Date of Birth</label><div class="prefill">13/04/1978</div></div>
+    <div class="field"><label>Current Age</label><div class="prefill">48</div></div>
+    <div class="field"><label>Candidate URN</label><div class="prefill">2000005020715</div></div>
+    <div class="field"><label>Type of Commission</label><div class="prefill">Reserve</div></div>
+  </div>
+  <div class="fr cfull" style="margin-top:4px">
+    <div class="field"><label>Current Occupation / Employment</label>
+      <input type="text" id="occ" value="Founder &amp; Director — Team Kilimanjaro (Tanzania); Team Toubkal (Morocco); Team Mount Everest (Nepal); Social Activation Software LLC (Wyoming, USA); Student — Open University LLB (Law)">
+    </div>
+  </div>
+
+  <!-- SECONDARY SCHOOLING -->
+  <div class="sec-bar">Secondary Level Schooling (Ages 11–16)</div>
+  <div class="fr c4">
+    <div class="field"><label>School Name</label><input type="text" id="s1n" value="The Park School"></div>
+    <div class="field"><label>Location</label><input type="text" id="s1l" value="North Devon, UK"></div>
+    <div class="field"><label>Type</label><input type="text" id="s1t" value="State"></div>
+    <div class="field"><label>Years Attended</label><input type="text" id="s1y" value="1991–1994"></div>
+  </div>
+
+  <!-- GCSE TABLE -->
+  <div class="sec-bar">GCSE Qualifications (or Level 2 Equivalents)</div>
+  <table class="qt">
+    <thead><tr>
+      <th>Type</th><th>Subject</th><th>Date Awarded</th><th>Grade</th><th>ALIS Points</th><th></th>
+    </tr></thead>
+    <tbody id="gcse-body"></tbody>
+    <tfoot><tr>
+      <td colspan="4" class="lbl">Total ALIS Points:</td>
+      <td class="val" id="gcse-total">69</td><td></td>
+    </tr></tfoot>
+  </table>
+  <button class="add-btn" onclick="addGCSERow()">+ Add row</button>
+  <div class="alis-note">ALIS Points: A*/9 = 8 &nbsp;·&nbsp; Low A*/High A/8 = 7.5 &nbsp;·&nbsp; A/7 = 7 &nbsp;·&nbsp; B/6 = 6 &nbsp;·&nbsp; C/4&amp;5 = 5 &nbsp;·&nbsp; D/3 = 4</div>
+
+  <!-- POST-16 -->
+  <div class="sec-bar">Post-16 Education — A Level / AS Qualifications (Level 3)</div>
+  <div class="matric-note-box"><strong>Note:</strong> A communication from Army Recruitment dated 31 July 2026 confirmed that the South African National Senior Certificate (Matriculation) is recognised as equivalent to UK AS Levels for this application. UCAS points for Matriculation subjects are calculated on that basis.</div>
+
+  <div class="fr c4">
+    <div class="field"><label>Establishment Name</label><input type="text" id="s2n" value="North Devon College"></div>
+    <div class="field"><label>Location</label><input type="text" id="s2l" value="North Devon, UK"></div>
+    <div class="field"><label>Type</label><input type="text" id="s2t" value="State"></div>
+    <div class="field"><label>Years Attended</label><input type="text" id="s2y" value="1994–1995"></div>
+  </div>
+  <table class="qt">
+    <thead><tr>
+      <th>Type</th><th>Subject</th><th>Date Awarded</th><th>Grade</th><th>UCAS Points</th><th></th>
+    </tr></thead>
+    <tbody id="al-body"></tbody>
+    <tfoot><tr>
+      <td colspan="4" class="lbl">North Devon College sub-total:</td>
+      <td class="val" id="al-total">40</td><td></td>
+    </tr></tfoot>
+  </table>
+  <button class="add-btn" onclick="addARow()">+ Add row</button>
+
+  <div class="divider"></div>
+
+  <div class="fr c4" style="margin-top:6px">
+    <div class="field"><label>Establishment (SA — Matriculation)</label><input type="text" id="s3n" value="Jeppe Boys High School"></div>
+    <div class="field"><label>Location</label><input type="text" id="s3l" value="Johannesburg, South Africa"></div>
+    <div class="field"><label>Type</label><input type="text" id="s3t" value="Model C"></div>
+    <div class="field"><label>Years Attended</label><input type="text" id="s3y" value="1995–1996"></div>
+  </div>
+  <table class="qt">
+    <thead><tr>
+      <th>Type</th><th>Subject</th><th>Date Awarded</th><th>Grade</th><th>UCAS Points</th><th></th>
+    </tr></thead>
+    <tbody id="mat-body"></tbody>
+    <tfoot>
+      <tr><td colspan="4" class="lbl">Jeppe Boys High School sub-total:</td><td class="val" id="mat-total">58</td><td></td></tr>
+      <tr class="combined-row"><td colspan="4" class="lbl" style="font-weight:600;font-style:normal;color:#1a1814">Combined UCAS Points (both institutions):</td><td class="val" id="combined-total">98</td><td></td></tr>
+    </tfoot>
+  </table>
+  <button class="add-btn" onclick="addMatricRow()">+ Add row</button>
+  <div class="fr cfull" style="margin-top:6px">
+    <div class="field"><label>Note on South African Matriculation</label>
+      <input type="text" id="mat-note" value="Matriculation completed in South Africa — 5 subjects at Higher Grade. Certificates available on request.">
+    </div>
+  </div>
+
+  <!-- UNIVERSITY -->
+  <div class="sec-bar">University / Higher Education (if applicable)</div>
+  <table class="qt">
+    <thead><tr><th>Establishment</th><th>Qualification</th><th>Subject</th><th>Grade</th><th>Years</th><th></th></tr></thead>
+    <tbody id="uni-body">
+      <tr>
+        <td><input type="text" value="The Open University"></td>
+        <td><input type="text" value="LLB (in progress)"></td>
+        <td><input type="text" value="Law"></td>
+        <td><input type="text" value="Distinction (×4 modules to date)"></td>
+        <td><input type="text" value="2024–present"></td>
+        <td><button class="del-btn" onclick="this.closest('tr').remove()">×</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="add-btn" onclick="addUniRow()">+ Add row</button>
+
+  <!-- OTHER QUALS -->
+  <div class="sec-bar">Other Academic Qualifications of Relevance to Waiver</div>
+  <table class="qt">
+    <thead><tr><th>Awarding Body</th><th>Qualification</th><th>Subject</th><th>Grade</th><th>Years</th></tr></thead>
+    <tbody id="oth-body">
+      <tr>
+        <td><input type="text" value="CAA / SACAA"></td>
+        <td><input type="text" value="PPL Theoretical Exams (all 7)"></td>
+        <td><input type="text" value="Air Law, Meteorology, Navigation, Principles of Flight, Human Performance, Aircraft General Knowledge, Operational Procedures"></td>
+        <td><input type="text" value="Pass (pre-COVID; resumed 2025)"></td>
+        <td><input type="text" value="2019–2026"></td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="add-btn" onclick="addOthRow()">+ Add row</button>
+
+  <!-- PROFESSIONAL BODIES -->
+  <div class="sec-bar">Membership of Professional Bodies</div>
+  <table class="qt">
+    <thead><tr><th>Professional Body</th><th>Type / Level of Membership</th><th>Additional Information</th></tr></thead>
+    <tbody id="prof-body">
+      <tr>
+        <td><input type="text" value="None"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="add-btn" onclick="addProfRow()">+ Add row</button>
+
+  <!-- JUSTIFICATION -->
+  <div class="sec-bar" style="margin-top:16px">Justification for Educational Waiver</div>
+  <div class="reason-row">
+    <div class="field"><label>Reason for Educational Waiver</label>
+      <select id="reason1">
+        <option>Significant life / work experience</option>
+        <option>Non-UK qualifications</option>
+        <option>Lack of academic attainment</option>
+        <option>High-level sport achievement</option>
+        <option>Significant project / expedition</option>
+      </select>
+    </div>
+    <div class="field"><label>Secondary Reason (if applicable)</label>
+      <select id="reason2">
+        <option>Non-UK qualifications</option>
+        <option value="">— none —</option>
+        <option>Significant life / work experience</option>
+        <option>Significant project / expedition</option>
+      </select>
+    </div>
+  </div>
+  <div class="just-box">
+    <div class="just-note">State fully the grounds upon which the waiver is being requested. Include any mitigating circumstances. Attach supporting documents as separate PDFs. The SEA will rely entirely on what is provided here.</div>
+    <textarea id="justification" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'">I am applying on grounds of significant life and work experience and a justifiable reason for academic divergence: my Matriculation, completed in South Africa when I relocated mid–A-level studies, is not recognised under UK equivalency rules — an administrative incompatibility, not a failure of performance, as my GCSE results demonstrate.
+
+During the years my peers were at university I cycled solo from Geneva to Jerusalem (navigating a Foreign Office hostage advisory in Syria en route) and across the United States, traversed the Jostedalsbreen Glacier, climbed Kilimanjaro, all major peaks on Mount Kenya and the Rwenzori Mountains — the latter requiring me to negotiate a 41-man UPDF armed platoon from senior Ugandan military commanders including the operational commander Brigadier General James Kazini, in order to enter a national park closed for four years due to active ADF insurgency — and briefed President Museveni on an outcome that directly led to the park's reopening.
+
+In 2006 I identified a fatal flaw in the official Tanzanian government investigation into three tourist deaths on Kilimanjaro's Western Breach, convinced the Director General of TANAPA to allow me to lead a field investigation with senior rangers, and produced the finding that redesigned the route still in use today. I have since founded and operated three international expedition companies across Tanzania, Morocco and Nepal, led or overseen expeditions for more than 13,000 climbers at altitude up to 5,895m, built a suite of commercial software platforms as sole developer, achieved Distinctions in all four modules of an Open University LLB to date, passed all seven PPL theoretical examinations (training now resumed after COVID interruption), and set two Kilimanjaro endurance records in July 2026. I am 48, a father of five including two infants, and was personally encouraged to seek a commission with the Royal Welch Fusiliers as a teenager by my second cousin, who subsequently commanded the Royal Welsh Regiment. The attached letter sets out the full account with supporting evidence and footnotes.</textarea>
+  </div>
+
+  <div class="sub-footer">
+    <strong>Return to:</strong> RG-NRCAPTOfficer@mod.gov.uk<br>
+    Include this form and all supporting documentation as separate PDF attachments.<br>
+    <em>Any personal information provided will be dealt with in the strictest confidence.</em>
+    <div class="sig-row">
+      <span>Signature:</span><div class="sig-line"></div><div></div>
+      <span>Date:</span><div class="sig-line"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('load',function(){
+  var ta=document.getElementById('justification');
+  ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';
+});
+
+function mkIn(v){var i=document.createElement('input');i.type='text';i.value=v||'';return i;}
+function mkTd(v){var td=document.createElement('td');td.appendChild(mkIn(v));return td;}
+function sumBody(id){
+  var b=document.getElementById(id);if(!b)return 0;
+  var t=0;
+  b.querySelectorAll('tr').forEach(function(r){
+    var ins=r.querySelectorAll('input');
+    var v=parseFloat(ins[4]&&ins[4].value);if(!isNaN(v))t+=v;
+  });
+  return t;
+}
+function recalc(){
+  var g=sumBody('gcse-body')||0;
+  document.getElementById('gcse-total').textContent=g||'—';
+  var a=sumBody('al-body')||0;
+  document.getElementById('al-total').textContent=a||'—';
+  var m=sumBody('mat-body')||0;
+  document.getElementById('mat-total').textContent=m||'—';
+  document.getElementById('combined-total').textContent=(a+m)||(a+m)||'—';
+}
+function makeRow(data,bodyId){
+  var tr=document.createElement('tr');
+  for(var i=0;i<5;i++){
+    var td=mkTd(data&&data[i]||'');
+    if(i===4)td.querySelector('input').addEventListener('input',recalc);
+    tr.appendChild(td);
+  }
+  var td2=document.createElement('td');
+  var b=document.createElement('button');b.className='del-btn';b.textContent='×';
+  b.onclick=function(){tr.remove();recalc();};td2.appendChild(b);tr.appendChild(td2);
+  document.getElementById(bodyId).appendChild(tr);
+}
+
+var gcseData=[
+  ['GCSE','Mathematics','Summer 1994','A','7'],
+  ['GCSE','English Language','Summer 1994','A','7'],
+  ['GCSE','English Literature','Summer 1994','B','6'],
+  ['GCSE','French','Summer 1994','A*','8'],
+  ['GCSE','German','Summer 1994','A*','8'],
+  ['GCSE','Statistics','Summer 1994','A','7'],
+  ['GCSE','History','Summer 1994','A*','8'],
+  ['GCSE','Science — Double Award','Summer 1994','A','7'],
+  ['GCSE','Science — Double Award','Summer 1994','A','7'],
+  ['GCSE','Art and Design','Summer 1994','D','4'],
+];
+var alData=[
+  ['A Level (1st year)','Mathematics','Summer 1995','A (forecast)',''],
+  ['A Level (1st year)','Physics','Summer 1995','A (forecast)',''],
+  ['A Level (1st year)','Chemistry','Summer 1995','A (forecast)',''],
+  ['A Level (1st year)','Applied Mathematics','Summer 1995','A (forecast)',''],
+  ['A Level (sat early)','General Studies','Summer 1995','B','40'],
+];
+var matData=[
+  ['SA Matric','English First Language (Higher Grade)','Nov/Dec 1996','A','20'],
+  ['SA Matric','Mathematics (Higher Grade)','Nov/Dec 1996','E','6'],
+  ['SA Matric','Physical Science (Higher Grade)','Nov/Dec 1996','D','8'],
+  ['SA Matric','Biology (Higher Grade)','Nov/Dec 1996','D','8'],
+  ['SA Matric','French (Higher Grade)','Nov/Dec 1996','B','16'],
+];
+
+gcseData.forEach(function(d){makeRow(d,'gcse-body');});
+alData.forEach(function(d){makeRow(d,'al-body');});
+matData.forEach(function(d){makeRow(d,'mat-body');});
+recalc();
+
+function addGCSERow(){makeRow(null,'gcse-body');recalc();}
+function addARow(){makeRow(null,'al-body');recalc();}
+function addMatricRow(){makeRow(null,'mat-body');recalc();}
+function addUniRow(){
+  var tr=document.createElement('tr');
+  for(var i=0;i<5;i++)tr.appendChild(mkTd(''));
+  var td2=document.createElement('td');var b=document.createElement('button');
+  b.className='del-btn';b.textContent='×';b.onclick=function(){tr.remove();};
+  td2.appendChild(b);tr.appendChild(td2);
+  document.getElementById('uni-body').appendChild(tr);
+}
+function addOthRow(){var tr=document.createElement('tr');for(var i=0;i<5;i++)tr.appendChild(mkTd(''));document.getElementById('oth-body').appendChild(tr);}
+function addProfRow(){var tr=document.createElement('tr');for(var i=0;i<3;i++)tr.appendChild(mkTd(''));document.getElementById('prof-body').appendChild(tr);}
+
+function getRows(id){
+  var b=document.getElementById(id);if(!b)return[];
+  return Array.from(b.querySelectorAll('tr')).map(function(r){
+    return Array.from(r.querySelectorAll('input')).map(function(i){return i.value;});
+  });
+}
+function v(id){return(document.getElementById(id)||{}).value||'';}
+
+async function exportPDF(){
+  var btn=document.getElementById('export-btn');
+  var status=document.getElementById('status');
+  btn.disabled=true;
+  status.textContent='Generating PDF…';
+
+  var payload={
+    occ: v('occ'),
+    s1n:v('s1n'), s1l:v('s1l'), s1t:v('s1t'), s1y:v('s1y'),
+    s2n:v('s2n'), s2l:v('s2l'), s2t:v('s2t'), s2y:v('s2y'),
+    s3n:v('s3n'), s3l:v('s3l'), s3t:v('s3t'), s3y:v('s3y'),
+    gcse_total: document.getElementById('gcse-total').textContent,
+    al_total:   document.getElementById('al-total').textContent,
+    mat_total:  document.getElementById('mat-total').textContent,
+    combined_total: document.getElementById('combined-total').textContent,
+    gcse_rows: getRows('gcse-body'),
+    al_rows:   getRows('al-body'),
+    mat_rows:  getRows('mat-body'),
+    uni_rows:  getRows('uni-body'),
+    oth_rows:  getRows('oth-body'),
+    prof_rows: getRows('prof-body'),
+    mat_note:  v('mat-note'),
+    reason1:   v('reason1'),
+    reason2:   v('reason2'),
+    justification: document.getElementById('justification').value,
+  };
+
+  try {
+    var resp = await fetch(SERVER_URL+'/generate-pdf', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload),
+    });
+    if(!resp.ok) throw new Error('Server error '+resp.status);
+    var blob = await resp.blob();
+    var url  = URL.createObjectURL(blob);
+    var a    = document.createElement('a');
+    a.href   = url;
+    a.download = 'Educational_Waiver_Request_Rees-Evans.pdf';
+    a.click();
+    URL.revokeObjectURL(url);
+    status.textContent='Downloaded ✓';
+    setTimeout(function(){status.textContent='';},3000);
+  } catch(e){
+    status.textContent='Error: '+e.message;
+    console.error(e);
+  } finally {
+    btn.disabled=false;
+  }
+}
+</script>
+</body>
+</html>
