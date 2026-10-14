@@ -5,7 +5,8 @@
     "dockerfilePath": "Dockerfile"
   },
   "deploy": {
-    "startCommand": "gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 90",
-    "healthcheckPath": "/health"
+    "startCommand": "/bin/sh -c \"gunicorn app:app --bind 0.0.0.0:${PORT:-8080} --workers 2 --timeout 90\"",
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 300
   }
 }
