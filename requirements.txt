@@ -2,3 +2,5 @@ flask==3.0.3
 flask-cors==4.0.1
 reportlab==4.2.2
 gunicorn==22.0.0
+weasyprint==63.1
+pydyf==0.13.0
