@@ -47,7 +47,7 @@ h1.title span{color:#D98A1C}
 .doc > div{max-width:none !important;font-family:Outfit,sans-serif !important;
   font-size:10.4pt !important;line-height:1.55 !important;color:#2B3340 !important}
 .doc p{orphans:3;widows:3}
-.doc img{max-width:100% !important;max-height:92mm;width:auto !important;height:auto !important;
+.doc img{max-width:100% !important;max-height:135mm;width:auto !important;height:auto !important;
   display:block;margin:0 auto;border-radius:6pt;break-inside:avoid}
 .doc table, .doc ul, .doc ol, .doc li{break-inside:avoid}
 .doc p[style*="font-weight:bold"], .doc p[style*="font-weight: bold"]{break-after:avoid}

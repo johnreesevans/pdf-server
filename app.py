@@ -39,9 +39,11 @@ def generate_schema_pdf():
 def html_pdf():
     # Server to server only (tk.sas.vc), so it is locked with a key rather than
     # opened to browsers: it fetches the images named in the HTML.
-    key = os.environ.get('PDF_KEY', '')
-    if not key or not hmac.compare_digest(key, request.headers.get('X-PDF-Key', '')):
-        return jsonify({'error': 'Not allowed'}), 403
+    key = os.environ.get('PDF_KEY', '').strip()
+    if not key:
+        return jsonify({'error': 'PDF_KEY is not set on the PDF server (Railway, Variables)'}), 503
+    if not hmac.compare_digest(key, request.headers.get('X-PDF-Key', '').strip()):
+        return jsonify({'error': "the key in tk.sas.vc's climb-pages.php does not match PDF_KEY on Railway"}), 403
     try:
         from html_renderer import render_climb_pdf   # loaded only when used
         body = request.get_json(force=True) or {}
